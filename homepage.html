@@ -182,7 +182,6 @@
       <option value="all">ទាំងអស់</option>
       <option value="ជីវិត">ជីវិត</option>
       <option value="ការអប់រំ">ការអប់រំ</option>
-      <option value="គ្រួសារ">គ្រួសារ</option>
       <option value="មិត្តភាព">មិត្តភាព</option>
       <option value="ជោគជ័យ">ជោគជ័យ</option>
     </select>
@@ -197,11 +196,7 @@
   // ── SIMPLE LIST ONLY — no meanings here ──
   const data = [
     { id:1, type:'proverbs', category:'ជីវិត',    text:'ក្ដៅថ្ងៃមិនស្មើក្ដៅចិត្ដ' },
-    { id:1, type:'proverbs', category:'ជីវិត',    text:'អូសទូកកុំឲ្យលំអាន ចាប់ត្រីបានកុំឲ្យល្អក់ទឹក' },
-    { id:1, type:'proverbs', category:'ជីវិត',    text:'កុំស្លាប់ដូចពស់ កុំរស់ដូចកង្កែប' },
-    { id:5, type:'proverbs', category:'ការអប់រំ',    text:'ឆ្កែខាំឲ្យរកម្ចាស់ គោឆ្កិះឲ្យរកនាយ' },
-    { id:2, type:'proverbs', category:'ការអប់រំ', text:'លោកថាឲ្យត្រាប់ នូវសត្វកុកសាប់ អំពើប្រពៃ កុំត្រាប់កុកស ភោភាវសព្វថ្ងៃ ហើយទំអាស្រ័យ ពុំប្លែកប្លែងប្រាណ' },
-    { id:2, type:'proverbs', category:'ការអប់រំ', text:'កុំពត់ស្រឡៅ កុំប្រដៅមនុស្សខូច' },
+    { id:2, type:'proverbs', category:'ការអប់រំ', text:'ផ្លូវវៀចកុំបោះបង់ ផ្លូវត្រង់កុំដើរហោង' },
     { id:3, type:'proverbs', category:'មិត្តភាព', text:'ក្បែរអ្នកល្អ ក្លាយជាអ្នកល្អ' },
     { id:4, type:'proverbs', category:'ជោគជ័យ',  text:'ទន្លេធំ ចាប់ត្រីធំ' },
     { id:6, type:'idioms',   category:'ជីវិត',    text:'ពោះឃ្លានភ្នែកឃ្លាន' },
@@ -237,7 +232,7 @@
     }
 
     area.innerHTML = filtered.map(item => `
-      <div class="pcard" onclick="goToDetail(${item.id})">
+      <div class="pcard" onclick="${item.type === 'proverbs' ? 'goToDetail(' + item.id + ')' : ''}">
         <div class="pcard-ornament-top"></div>
         <div class="pcard-body">
           <div class="pcard-cat">🏷 ${item.category}</div>
@@ -253,10 +248,9 @@
     `).join('')
   }
 
-  // ── Send only the ID to detail page ──
+  // ── Link directly to each proverb's own page ──
   function goToDetail(id) {
-    localStorage.setItem('bk_selected_id', id)
-    window.location.href = 'BrachaKhmer-Detail.html'
+    window.location.href = `BrachaKhmer-Detail-${id}.html`
   }
 
   function toggleFav(id, btn) {

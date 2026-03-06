@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ប្រាជ្ញាខ្មែរ – ទន្លេធំ ចាប់ត្រីធំ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Battambang:wght@400;700&family=Moul&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      background: #2C2420;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Battambang', serif;
+    }
+    .phone {
+      width: 350px; height: 680px;
+      position: relative; overflow: hidden;
+      border-radius: 40px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+      flex-shrink: 0; background: #FBF5E6;
+      display: flex; flex-direction: column;
+    }
+    .navbar {
+      background: linear-gradient(135deg, #5A3808 0%, #7A5020 100%);
+      padding: 14px 18px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-shrink: 0; box-shadow: 0 2px 12px rgba(80,40,10,0.3);
+    }
+    .back-btn {
+      width:36px; height:36px;
+      background:rgba(255,248,220,0.15); border:1px solid rgba(255,240,200,0.25);
+      border-radius:10px; display:flex; align-items:center; justify-content:center;
+      cursor:pointer; font-size:18px; color:#F5D878; transition:background 0.2s;
+    }
+    .back-btn:hover { background:rgba(255,248,220,0.28); }
+    .nav-title { font-family:'Moul',serif; font-size:15px; color:#F5D878; text-shadow:1px 1px 0 rgba(0,0,0,0.3); }
+    .nav-fav-btn {
+      width:36px; height:36px;
+      background:rgba(255,248,220,0.15); border:1px solid rgba(255,240,200,0.25);
+      border-radius:10px; display:flex; align-items:center; justify-content:center;
+      cursor:pointer; font-size:18px; transition:background 0.2s, transform 0.2s;
+    }
+    .nav-fav-btn:hover { background:rgba(255,248,220,0.28); transform:scale(1.1); }
+    .scroll-area {
+      flex:1; overflow-y:auto; min-height:0;
+      -webkit-overflow-scrolling: touch;
+      padding:16px 16px 16px;
+      display:flex; flex-direction:column; gap:14px;
+    }
+    .scroll-area::-webkit-scrollbar { width:3px; }
+    .scroll-area::-webkit-scrollbar-thumb { background:#D8C890; border-radius:4px; }
+    .hero {
+      background:linear-gradient(145deg,#5A3808 0%,#7A5020 60%,#6A4414 100%);
+      border-radius:20px; padding:22px 20px 18px;
+      position:relative; overflow:hidden;
+      box-shadow:0 6px 24px rgba(80,40,10,0.35); text-align:center;
+    }
+    .hero::before {
+      content:'❖ ✦ ❖ ✦ ❖ ✦ ❖ ✦ ❖ ✦ ❖ ✦ ❖';
+      position:absolute; top:7px; left:0; right:0;
+      font-size:9px; color:rgba(245,216,120,0.22);
+      letter-spacing:5px; white-space:nowrap; overflow:hidden;
+    }
+    .hero::after {
+      content:'❖ ✦ ❖ ✦ ❖ ✦ ❖ ✦ ❖ ✦ ❖ ✦ ❖';
+      position:absolute; bottom:7px; left:0; right:0;
+      font-size:9px; color:rgba(245,216,120,0.22);
+      letter-spacing:5px; white-space:nowrap; overflow:hidden;
+    }
+    .hero-type {
+      font-size:11px; color:rgba(245,216,120,0.7);
+      letter-spacing:0.12em; text-transform:uppercase; margin-bottom:12px;
+      display:flex; align-items:center; justify-content:center; gap:6px;
+    }
+    .hero-proverb {
+      font-family:'Battambang',serif; font-size:22px; font-weight:700;
+      color:#F5D878; line-height:1.65;
+      text-shadow:0 2px 10px rgba(0,0,0,0.3);
+      position:relative; z-index:1; padding:8px 4px;
+    }
+    .hero-divider {
+      display:flex; align-items:center; gap:8px;
+      margin:12px 0 10px; color:rgba(245,216,120,0.4); font-size:11px;
+    }
+    .hdl { flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(245,216,120,0.4)); }
+    .hdl.r { background:linear-gradient(90deg,rgba(245,216,120,0.4),transparent); }
+    .hero-cat {
+      display:inline-flex; align-items:center; gap:5px;
+      background:rgba(245,216,120,0.15); border:1px solid rgba(245,216,120,0.3);
+      border-radius:20px; padding:4px 14px;
+      font-size:11px; color:rgba(245,216,120,0.82); letter-spacing:0.06em;
+    }
+    .lang-block {
+      background:#FFFCF0; border-radius:18px;
+      border:1px solid #E8D8A8; box-shadow:0 2px 10px rgba(100,70,10,0.08);
+    }
+    .block-header {
+      padding:14px 18px 12px;
+      display:flex; align-items:center; gap:10px; border-radius:18px 18px 0 0;
+    }
+    .block-header.km { background:linear-gradient(135deg,#7A5020 0%,#9A6828 100%); border-radius:18px 18px 0 0; }
+    .block-header.en { background:linear-gradient(135deg,#4A6030 0%,#6A8050 100%); border-radius:18px 18px 0 0; }
+    .block-flag { font-size:22px; }
+    .block-title { font-family:'Battambang',serif; font-size:15px; font-weight:700; color:#FFF8E8; }
+    .block-subtitle { font-family:'Crimson Pro',serif; font-style:italic; font-size:11px; color:rgba(255,248,220,0.65); }
+    .block-ornament { height:3px; background:linear-gradient(90deg,#C8943A,#E8C060,#C8943A); }
+    .block-ornament.en { background:linear-gradient(90deg,#7AAA50,#B0CC80,#7AAA50); }
+    .block-content { padding:14px 16px 16px; display:flex; flex-direction:column; gap:12px; }
+    .content-row { display:flex; flex-direction:column; gap:7px; }
+    .row-label {
+      font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase;
+      display:flex; align-items:center; gap:7px;
+    }
+    .row-label.km { color:#A87828; }
+    .row-label.en { color:#5A7A40; }
+    .row-icon {
+      width:22px; height:22px; border-radius:6px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:11px; flex-shrink:0;
+    }
+    .row-icon.km { background:linear-gradient(145deg,#F2CC52,#C89028); box-shadow:0 2px 5px rgba(180,120,20,0.3); }
+    .row-icon.en { background:linear-gradient(145deg,#90C060,#5A8030); box-shadow:0 2px 5px rgba(80,130,40,0.3); }
+    .km-text {
+      font-family:'Battambang',serif; font-size:14px; color:#3D2008; line-height:1.85;
+      background:#FFF8EC; border-radius:10px; padding:12px 14px; border-left:3px solid #C8943A;
+    }
+    .en-text {
+      font-family:'Crimson Pro',serif; font-style:italic; font-size:14px;
+      color:#2A3820; line-height:1.8;
+      background:#F0F5EC; border-radius:10px; padding:12px 14px; border-left:3px solid #7AAA50;
+    }
+    .row-sep { height:1px; background:linear-gradient(90deg,transparent,#E8D8A8,transparent); }
+    .tags-section {
+      background:#FFFCF0; border-radius:16px;
+      border:1px solid #E8D8A8; box-shadow:0 2px 8px rgba(100,70,10,0.07);
+    }
+    .tags-header {
+      background:linear-gradient(135deg,#8A6828 0%,#A88040 100%);
+      padding:10px 16px; display:flex; align-items:center; gap:8px;
+      border-radius:16px 16px 0 0;
+    }
+    .tags-title { font-family:'Battambang',serif; font-size:13px; font-weight:700; color:#FFF8E8; }
+    .tags-body { padding:14px 16px; display:flex; flex-wrap:wrap; gap:8px; }
+    .tag {
+      background:#FFF0CC; border:1px solid #E8C870; border-radius:20px;
+      padding:4px 12px; font-size:12px; color:#A87828;
+      cursor:pointer; transition:all 0.2s; font-family:'Battambang',serif;
+    }
+    .tag:hover { background:#A87828; color:#FFF8E8; border-color:#A87828; }
+    .bottom-actions {
+      padding:12px 16px 16px; display:flex; gap:10px; flex-shrink:0;
+      background:#FBF5E6; border-top:1px solid #E8D8A8;
+    }
+    .btn-fav-main {
+      flex:1; padding:13px;
+      background:linear-gradient(135deg,#C89A3A 0%,#A87820 55%,#8A6010 100%);
+      border:none; border-radius:14px;
+      font-family:'Battambang',serif; font-size:15px; font-weight:700;
+      color:#FFF8E8; cursor:pointer;
+      box-shadow:0 4px 0 #6A4808,0 6px 16px rgba(120,80,10,0.28);
+      transition:transform 0.15s, box-shadow 0.15s;
+      display:flex; align-items:center; justify-content:center; gap:8px;
+      position:relative; overflow:hidden;
+    }
+    .btn-fav-main::before { content:''; position:absolute; top:0;left:0;right:0;height:44%; background:rgba(255,255,255,.12); border-radius:14px 14px 50% 50%; }
+    .btn-fav-main:hover  { transform:translateY(-2px); box-shadow:0 6px 0 #5A3A06,0 10px 20px rgba(120,80,10,.33); }
+    .btn-fav-main:active { transform:translateY(3px);  box-shadow:0 1px 0 #6A4808; }
+    .btn-share {
+      width:48px; height:48px; background:#FFF8EC; border:1.5px solid #E8C870;
+      border-radius:14px; display:flex; align-items:center; justify-content:center;
+      font-size:20px; cursor:pointer; transition:all 0.2s; flex-shrink:0;
+    }
+    .btn-share:hover { background:#FFF0CC; border-color:#C8943A; transform:scale(1.05); }
+  </style>
+</head>
+<body>
+<div class="phone">
+
+  <div class="navbar">
+    <button class="back-btn" onclick="window.location.href='BrachaKhmer-Home.html'">←</button>
+    <div class="nav-title">លម្អិត</div>
+    <button class="nav-fav-btn" id="navFav" onclick="toggleFav()">🤍</button>
+  </div>
+
+  <div class="scroll-area">
+
+    <div class="hero">
+      <div class="hero-type">📖 សុភាសិត · Proverb</div>
+      <div class="hero-proverb">ទន្លេធំ ចាប់ត្រីធំ</div>
+      <div class="hero-divider"><div class="hdl"></div>✦<div class="hdl r"></div></div>
+      <div class="hero-cat">🏷 ជោគជ័យ</div>
+    </div>
+
+    <!-- KHMER BLOCK -->
+    <div class="lang-block">
+      <div class="block-header km">
+        <div class="block-flag">🇰🇭</div>
+        <div>
+          <div class="block-title">ភាសាខ្មែរ</div>
+          <div class="block-subtitle">Khmer Version</div>
+        </div>
+      </div>
+      <div class="block-ornament"></div>
+      <div class="block-content">
+        <div class="content-row">
+          <div class="row-label km"><div class="row-icon km">📘</div>មានន័យ</div>
+          <div class="km-text">ការខិតខំប្រឹងប្រែងធំ នឹងនាំឱ្យទទួលបានផ្លែផ្កាធំ។ ការខំប្រឹងតូចតែ មិនអាចបង្កើតជោគជ័យធំបានឡើយ។</div>
+        </div>
+        <div class="row-sep"></div>
+        <div class="content-row">
+          <div class="row-label km"><div class="row-icon km">💡</div>ការពន្យល់</div>
+          <div class="km-text">សុភាសិតនេះប្រៀបទន្លេជាឱកាស ហើយត្រីជាជោគជ័យ។ ឱកាសធំ ត្រូវការទឹកចិត្ត និងកិច្ចខំប្រឹងធំដែរ។</div>
+        </div>
+        <div class="row-sep"></div>
+        <div class="content-row">
+          <div class="row-label km"><div class="row-icon km">📝</div>ឧទាហរណ៍</div>
+          <div class="km-text">វីរៈ ព្យាយាមចូលរៀនសាកលវិទ្យាល័យល្អ ហើយទទួលបានការងារល្អ — ទន្លេធំ ចាប់ត្រីធំ។</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ENGLISH BLOCK -->
+    <div class="lang-block">
+      <div class="block-header en">
+        <div class="block-flag">🇬🇧</div>
+        <div>
+          <div class="block-title">English</div>
+          <div class="block-subtitle">English Version</div>
+        </div>
+      </div>
+      <div class="block-ornament en"></div>
+      <div class="block-content">
+        <div class="content-row">
+          <div class="row-label en"><div class="row-icon en">📘</div>Meaning</div>
+          <div class="en-text">Great effort brings great reward. Small ambition cannot create great success.</div>
+        </div>
+        <div class="row-sep"></div>
+        <div class="content-row">
+          <div class="row-label en"><div class="row-icon en">💡</div>Explanation</div>
+          <div class="en-text">This proverb compares the river to opportunity and the fish to success. Big opportunities require big courage and effort.</div>
+        </div>
+        <div class="row-sep"></div>
+        <div class="content-row">
+          <div class="row-label en"><div class="row-icon en">📝</div>Example</div>
+          <div class="en-text">Virak worked hard to enter a good university and landed a great job — big river, big fish.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAGS -->
+    <div class="tags-section">
+      <div class="tags-header">
+        <span style="font-size:16px;">🔗</span>
+        <div class="tags-title">ពាក្យពាក់ព័ន្ធ · Related Tags</div>
+      </div>
+      <div class="tags-body">
+        <div class="tag">ជោគជ័យ</div><div class="tag">ការខំប្រឹង</div><div class="tag">Success</div><div class="tag">Effort</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="bottom-actions">
+    <button class="btn-fav-main" id="favBtn" onclick="toggleFav()">🤍 បន្ថែមទៅចូលចិត្ត</button>
+    <button class="btn-share">📤</button>
+  </div>
+
+</div>
+<script>
+  let favorites = JSON.parse(localStorage.getItem('bk_favorites') || '[]')
+  let isFav = favorites.includes(4)
+
+  function updateFavBtn() {
+    const btn = document.getElementById('favBtn')
+    const nav = document.getElementById('navFav')
+    if (isFav) {
+      btn.innerHTML = '❤️ រក្សាទុករួចហើយ'
+      btn.style.background = 'linear-gradient(135deg,#C84040 0%,#A82020 55%,#8A1010 100%)'
+      btn.style.boxShadow  = '0 4px 0 #6A0808,0 6px 16px rgba(120,20,20,0.28)'
+      nav.textContent = '❤️'
+    } else {
+      btn.innerHTML = '🤍 បន្ថែមទៅចូលចិត្ត'
+      btn.style.background = 'linear-gradient(135deg,#C89A3A 0%,#A87820 55%,#8A6010 100%)'
+      btn.style.boxShadow  = '0 4px 0 #6A4808,0 6px 16px rgba(120,80,10,0.28)'
+      nav.textContent = '🤍'
+    }
+  }
+
+  function toggleFav() {
+    isFav = !isFav
+    if (isFav) favorites.push(4)
+    else favorites = favorites.filter(f => f !== 4)
+    localStorage.setItem('bk_favorites', JSON.stringify(favorites))
+    updateFavBtn()
+  }
+
+  updateFavBtn()
+</script>
+</body>
+</html>
