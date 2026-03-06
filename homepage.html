@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ប្រាជ្ញាខ្មែរ – Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Battambang:wght@400;700&family=Moul&family=Crimson+Pro:ital,wght@0,400;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      background: #2C2420;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Battambang', serif;
+    }
+    .phone {
+      width: 350px; height: 680px;
+      position: relative; overflow: hidden;
+      border-radius: 40px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+      flex-shrink: 0; background: #FBF5E6;
+      display: flex; flex-direction: column;
+    }
+    .navbar {
+      background: linear-gradient(135deg, #5A3808 0%, #7A5020 100%);
+      padding: 14px 18px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-shrink: 0;
+      box-shadow: 0 2px 12px rgba(80,40,10,0.3);
+    }
+    .nav-logo { font-family:'Moul',serif; font-size:16px; color:#F5D878; text-shadow:1px 1px 0 rgba(0,0,0,0.3); }
+    .nav-links { display:flex; align-items:center; gap:4px; }
+    .nav-btn {
+      background:none; border:none; cursor:pointer;
+      padding:6px 8px; border-radius:10px;
+      display:flex; flex-direction:column; align-items:center; gap:2px;
+      color:rgba(255,240,200,0.65); font-size:9px; font-family:'Battambang',serif;
+      transition: background 0.2s;
+    }
+    .nav-btn:hover { background:rgba(255,255,255,0.1); color:#F5D878; }
+    .nav-btn.active { color:#F5D878; }
+    .nav-icon { font-size:18px; padding:3px 5px; }
+    .nav-logout {
+      background:rgba(200,80,50,0.25); border:1px solid rgba(200,80,50,0.4);
+      border-radius:10px; padding:6px 10px; color:#F5A090;
+      font-size:9px; cursor:pointer; font-family:'Battambang',serif;
+      display:flex; flex-direction:column; align-items:center; gap:2px;
+    }
+    .nav-logout:hover { background:rgba(200,80,50,0.4); }
+    .nav-logout .nav-icon { font-size:16px; }
+    .tabs-wrap {
+      background: linear-gradient(180deg, #7A5020 0%, #6A4018 100%);
+      padding: 0 18px; display:flex; gap:4px; flex-shrink:0;
+    }
+    .tab-btn {
+      padding:10px 16px; background:none; border:none; cursor:pointer;
+      font-family:'Battambang',serif; font-size:13px;
+      color:rgba(255,240,200,0.55);
+      position:relative; transition:color 0.2s;
+      display:flex; align-items:center; gap:6px;
+    }
+    .tab-btn::after {
+      content:''; position:absolute; bottom:0; left:0; right:0;
+      height:2.5px; background:#F5D878; border-radius:2px 2px 0 0;
+      transform:scaleX(0); transition:transform 0.25s;
+    }
+    .tab-btn.active { color:#F5D878; font-weight:700; }
+    .tab-btn.active::after { transform:scaleX(1); }
+    .search-area {
+      padding:14px 16px 10px; display:flex; gap:8px;
+      background:#FBF5E6; flex-shrink:0;
+    }
+    .search-wrap { flex:1; position:relative; }
+    .search-wrap::before {
+      content:'🔍'; position:absolute; left:12px; top:50%;
+      transform:translateY(-50%); font-size:13px; pointer-events:none;
+    }
+    .search-input {
+      width:100%; padding:10px 12px 10px 36px;
+      background:#FFF8EC; border:1.5px solid #E8D8A8; border-radius:12px;
+      font-family:'Battambang',serif; font-size:13px; color:#3D2008;
+      outline:none; transition:border-color 0.2s;
+    }
+    .search-input:focus { border-color:#C8943A; }
+    .search-input::placeholder { color:#C0A878; }
+    .filter-select {
+      padding:10px; background:#FFF8EC; border:1.5px solid #E8D8A8;
+      border-radius:12px; font-family:'Battambang',serif; font-size:12px;
+      color:#6A4818; outline:none; cursor:pointer; min-width:100px;
+    }
+    .filter-select:focus { border-color:#C8943A; }
+    .section-label {
+      padding:4px 16px 8px; font-size:11px; color:#A08848;
+      letter-spacing:0.08em; text-transform:uppercase;
+      background:#FBF5E6; display:flex; align-items:center; gap:8px; flex-shrink:0;
+    }
+    .section-label::after { content:''; flex:1; height:1px; background:linear-gradient(90deg,#E8D8A8,transparent); }
+    .cards-area {
+      flex:1; overflow-y:auto; min-height:0;
+      padding:4px 14px 16px; background:#FBF5E6;
+      display:flex; flex-direction:column; gap:12px;
+    }
+    .cards-area::-webkit-scrollbar { width:4px; }
+    .cards-area::-webkit-scrollbar-thumb { background:#D8C890; border-radius:4px; }
+
+    /* ── CARD — fixed layout ── */
+    .pcard {
+      background:#FFFCF0; border-radius:16px;
+      border:1px solid #E8D8A8;
+      box-shadow:0 2px 10px rgba(100,70,10,0.1);
+      transition:transform 0.2s, box-shadow 0.2s;
+      cursor:pointer;
+    }
+    .pcard:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(100,70,10,0.16); }
+    .pcard-ornament-top { height:5px; background:linear-gradient(90deg,#C8943A,#E8C060,#C8943A); border-radius:16px 16px 0 0; }
+
+    .pcard-body {
+      padding: 10px 16px 12px;
+    }
+
+    /* Row 1: category badge — tight to top */
+    .pcard-cat {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: #A87828; background: #FFF0CC;
+      border: 1px solid #E8C870;
+      padding: 3px 10px; border-radius: 20px;
+      align-self: flex-start;
+      flex-shrink: 0;
+    }
+
+    /* Row 2: proverb text — takes remaining space, vertically centered */
+    .pcard-text {
+      font-family: 'Battambang', serif;
+      font-size: 15px; font-weight: 700;
+      color: #3D2008; line-height: 1.6;
+      margin: 8px 0 10px;
+    }
+
+    /* Row 3: footer — always at bottom */
+    .pcard-footer {
+      display: flex; align-items: center; justify-content: flex-end;
+      padding-top: 8px;
+      border-top: 1px dashed #E8D8A8;
+      flex-shrink: 0;
+    }
+
+    .btn-fav {
+      background:none; border:none; font-size:20px; cursor:pointer;
+      padding:4px 6px; border-radius:50%; transition:transform 0.2s; line-height:1;
+    }
+    .btn-fav:hover { transform:scale(1.25); }
+    .pcard-ornament-bot { height:3px; background:linear-gradient(90deg,transparent,#E8C060,#C8943A,#E8C060,transparent); border-radius:0 0 16px 16px; }
+  </style>
+</head>
+<body>
+<div class="phone">
+
+  <div class="navbar">
+    <div class="nav-logo">ប្រាជ្ញាខ្មែរ</div>
+    <div class="nav-links">
+      <button class="nav-btn active"><span class="nav-icon">🏠</span>ទំព័រដើម</button>
+      <button class="nav-btn"><span class="nav-icon">❤️</span>ចូលចិត្ត</button>
+      <button class="nav-btn"><span class="nav-icon">👤</span>គណនី</button>
+      <button class="nav-logout"><span class="nav-icon">🚪</span>ចាកចេញ</button>
+    </div>
+  </div>
+
+  <div class="tabs-wrap">
+    <button class="tab-btn active" onclick="switchTab('proverbs',this)">📖 សុភាសិត</button>
+    <button class="tab-btn" onclick="switchTab('idioms',this)">🗣️ ពាក្យបណ្ដៅ</button>
+  </div>
+
+  <div class="search-area">
+    <div class="search-wrap">
+      <input class="search-input" type="text" placeholder="ស្វែងរក..." oninput="filterCards()"/>
+    </div>
+    <select class="filter-select" onchange="filterCards()">
+      <option value="all">ទាំងអស់</option>
+      <option value="ជីវិត">ជីវិត</option>
+      <option value="ការអប់រំ">ការអប់រំ</option>
+      <option value="គ្រួសារ">គ្រួសារ</option>
+      <option value="មិត្តភាព">មិត្តភាព</option>
+      <option value="ជោគជ័យ">ជោគជ័យ</option>
+    </select>
+  </div>
+
+  <div class="section-label" id="sectionLabel">បង្ហាញសុភាសិតទាំងអស់</div>
+  <div class="cards-area" id="cardsArea"></div>
+
+</div>
+
+<script>
+  // ── SIMPLE LIST ONLY — no meanings here ──
+  const data = [
+    { id:1, type:'proverbs', category:'ជីវិត',    text:'ក្ដៅថ្ងៃមិនស្មើក្ដៅចិត្ដ' },
+    { id:1, type:'proverbs', category:'ជីវិត',    text:'អូសទូកកុំឲ្យលំអាន ចាប់ត្រីបានកុំឲ្យល្អក់ទឹក' },
+    { id:1, type:'proverbs', category:'ជីវិត',    text:'កុំស្លាប់ដូចពស់ កុំរស់ដូចកង្កែប' },
+    { id:5, type:'proverbs', category:'ការអប់រំ',    text:'ឆ្កែខាំឲ្យរកម្ចាស់ គោឆ្កិះឲ្យរកនាយ' },
+    { id:2, type:'proverbs', category:'ការអប់រំ', text:'លោកថាឲ្យត្រាប់ នូវសត្វកុកសាប់ អំពើប្រពៃ កុំត្រាប់កុកស ភោភាវសព្វថ្ងៃ ហើយទំអាស្រ័យ ពុំប្លែកប្លែងប្រាណ' },
+    { id:2, type:'proverbs', category:'ការអប់រំ', text:'កុំពត់ស្រឡៅ កុំប្រដៅមនុស្សខូច' },
+    { id:3, type:'proverbs', category:'មិត្តភាព', text:'ក្បែរអ្នកល្អ ក្លាយជាអ្នកល្អ' },
+    { id:4, type:'proverbs', category:'ជោគជ័យ',  text:'ទន្លេធំ ចាប់ត្រីធំ' },
+    { id:6, type:'idioms',   category:'ជីវិត',    text:'ពោះឃ្លានភ្នែកឃ្លាន' },
+    { id:7, type:'idioms',   category:'ការអប់រំ', text:'ច្រៀងមិនដឹងភ្លេង' },
+    { id:8, type:'idioms',   category:'ជីវិត',    text:'ត្រីចិញ្ចើមទឹក' },
+    { id:9, type:'idioms',   category:'ជោគជ័យ',  text:'ដៃវែង ភ្នែកឃ្លាត' },
+  ]
+
+  let activeTab = 'proverbs'
+  let favorites = JSON.parse(localStorage.getItem('bk_favorites') || '[]')
+
+  function switchTab(tab, el) {
+    activeTab = tab
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'))
+    el.classList.add('active')
+    filterCards()
+  }
+
+  function filterCards() {
+    const query = document.querySelector('.search-input').value.toLowerCase()
+    const cat   = document.querySelector('.filter-select').value
+    let filtered = data.filter(d => d.type === activeTab)
+    if (cat !== 'all') filtered = filtered.filter(d => d.category === cat)
+    if (query) filtered = filtered.filter(d => d.text.includes(query))
+
+    const tabName = activeTab === 'proverbs' ? 'សុភាសិត' : 'ពាក្យបណ្ដៅ'
+    document.getElementById('sectionLabel').textContent = `បង្ហាញ ${filtered.length} ${tabName}`
+
+    const area = document.getElementById('cardsArea')
+    if (filtered.length === 0) {
+      area.innerHTML = `<div style="text-align:center;padding:40px;color:#A08848;font-size:14px;">មិនមានលទ្ធផល 🔍</div>`
+      return
+    }
+
+    area.innerHTML = filtered.map(item => `
+      <div class="pcard" onclick="goToDetail(${item.id})">
+        <div class="pcard-ornament-top"></div>
+        <div class="pcard-body">
+          <div class="pcard-cat">🏷 ${item.category}</div>
+          <div class="pcard-text">${item.text}</div>
+          <div class="pcard-footer">
+            <button class="btn-fav" onclick="event.stopPropagation(); toggleFav(${item.id}, this)">
+              ${favorites.includes(item.id) ? '❤️' : '🤍'}
+            </button>
+          </div>
+        </div>
+        <div class="pcard-ornament-bot"></div>
+      </div>
+    `).join('')
+  }
+
+  // ── Send only the ID to detail page ──
+  function goToDetail(id) {
+    localStorage.setItem('bk_selected_id', id)
+    window.location.href = 'BrachaKhmer-Detail.html'
+  }
+
+  function toggleFav(id, btn) {
+    if (favorites.includes(id)) {
+      favorites = favorites.filter(f => f !== id)
+      btn.textContent = '🤍'
+    } else {
+      favorites.push(id)
+      btn.textContent = '❤️'
+    }
+    localStorage.setItem('bk_favorites', JSON.stringify(favorites))
+  }
+
+  filterCards()
+</script>
+</body>
+</html>

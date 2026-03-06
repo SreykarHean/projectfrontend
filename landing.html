@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ប្រាជ្ញាខ្មែរ – Welcome</title>
+  <link href="https://fonts.googleapis.com/css2?family=Battambang:wght@400;700&family=Moul&family=Crimson+Pro:ital,wght@0,400;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      background: #2C2420;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Battambang', serif;
+    }
+    .phone {
+      width: 350px;
+      height: 680px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 40px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+      flex-shrink: 0;
+    }
+
+    /* z-index map:
+       1 = sky bg
+       2 = sun
+       3 = clouds
+       4 = temple
+       5 = water
+       6 = ground
+       9 = top content
+       10 = bottom button
+    */
+
+    .sky {
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(180deg,
+        #C8DFF0 0%, #DCF0FA 15%, #EEE8D0 42%,
+        #E8DCBA 62%, #D4C898 80%, #C4B882 100%);
+    }
+    .sun {
+      position: absolute; z-index: 2;
+      top:50px; left: 50%; transform: translateX(-50%);
+      width: 250px; height: 250px;
+      background: radial-gradient(circle,
+        rgba(255,245,190,.9) 0%, rgba(255,225,130,.55) 40%,
+        rgba(255,200,80,.18) 70%, transparent 100%);
+      border-radius: 50%;
+    }
+    /* clouds */
+    .cl { position:absolute; z-index:3; background:rgba(255,255,255,.68); border-radius:50px; }
+    .cl::before,.cl::after { content:''; position:absolute; background:rgba(255,255,255,.68); border-radius:50%; }
+    .cl1 { width:68px; height:17px; top:78px; left:22px; }
+    .cl1::before { width:28px; height:28px; top:-14px; left:10px; }
+    .cl1::after  { width:20px; height:20px; top:-10px; left:30px; }
+    .cl2 { width:52px; height:14px; top:98px; right:34px; opacity:.6; }
+    .cl2::before { width:22px; height:22px; top:-11px; left:7px; }
+    .cl2::after  { width:16px; height:16px; top:-8px;  left:24px; }
+
+    /* temple */
+    .temple { position:absolute; z-index:4; bottom:190px; left:0; right:0; display:flex; justify-content:center; }
+    .temple svg { width:100%; height:auto; }
+
+    /* ground */
+    .ground { position:absolute; z-index:6; bottom:0; left:0; right:0; height:198px; }
+    .g-hill { position:absolute; bottom:156px; left:-8%; right:-8%; height:76px;
+      background:#7AAA58; border-radius:50% 50% 0 0; }
+    .g-main { position:absolute; bottom:0; left:0; right:0; height:162px;
+      background:linear-gradient(180deg,#C8B87A 0%,#B0A060 100%); }
+    .g-path { position:absolute; bottom:0; left:50%; transform:translateX(-50%);
+      width:86px; height:162px;
+      background:linear-gradient(180deg,#D4C888 0%,#C0B070 100%);
+      clip-path:polygon(22% 0%,78% 0%,100% 100%,0% 100%); }
+    .tr { position:absolute; z-index:7; bottom:148px; display:flex; flex-direction:column; align-items:center; }
+    .tr-a { width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-bottom:36px solid #4A7838; }
+    .tr-b { width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:26px solid #5A8848;margin-top:-15px; }
+    .tr-t { width:7px;height:17px;background:#6B4828;border-radius:2px; }
+    .pm { position:absolute; z-index:7; bottom:148px; display:flex; flex-direction:column; align-items:center; }
+    .pm-h { font-size:25px;filter:saturate(.5) brightness(.68);margin-bottom:-7px; }
+    .pm-t { width:6px;background:#7A5530;border-radius:3px; }
+
+    /* ── TOP CONTENT ── */
+    .top-content {
+      position: absolute;
+      z-index: 9;
+      top: 0; left: 0; right: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 55px;
+    }
+
+    .swagamn {
+      font-family: 'Battambang', serif;
+      font-size: 30px;
+      font-weight: 700;
+      color: #5A3808;
+      letter-spacing: 0.08em;
+    }
+
+    .logo {
+      margin-top: 10px;
+      width: 68px; height: 68px;
+      background: linear-gradient(145deg, #F2CC52, #C89028);
+      border-radius: 18px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 32px;
+      box-shadow: 0 6px 18px rgba(180,120,20,.42), 0 2px 0 rgba(255,255,255,.35) inset;
+      animation: bob 3.5s ease-in-out infinite;
+    }
+    @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
+
+    .t-km {
+      margin-top: 5px;
+      font-family: 'Moul', serif;
+      font-size: 38px;
+      color: #4A2E08;
+      text-align: center;
+      text-shadow: 2px 2px 0 rgba(200,150,40,.38), 0 4px 14px rgba(100,60,10,.2);
+    }
+    .t-en {
+      margin-top: 5px;
+      font-family: 'Crimson Pro', serif;
+      font-size: 12.5px; color: #9A7840;
+      letter-spacing: .2em; text-transform: uppercase;
+    }
+    .div-row {
+      margin-top: 12px;
+      display: flex; align-items: center; gap: 10px;
+      color: #C8A040; font-size: 13px; opacity: .72;
+    }
+    .div-line { width:46px; height:1px; background:linear-gradient(90deg,transparent,#C8A040); }
+    .div-line.r { background:linear-gradient(90deg,#C8A040,transparent); }
+    .desc {
+      margin-top: 30px;
+      font-family: 'Battambang', serif;
+      font-size: 15px; color: #683b03;
+      text-align: center; line-height: 2;
+      padding: 0 50px;
+    }
+
+    /* ── BOTTOM BUTTON ── */
+    .bottom-btn {
+      position: absolute;
+      z-index: 10;
+      bottom: 0; left: 0; right: 0;
+      padding: 18px 24px 44px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .btn {
+      width: 100%; padding: 20px 22px;
+      background: linear-gradient(135deg,#C89A3A 0%,#A87820 55%,#8A6010 100%);
+      border: none; border-radius: 20px; cursor: pointer;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 5px 0 #6A4808, 0 10px 22px rgba(120,80,10,.35);
+      transition: transform .15s, box-shadow .15s;
+      position: relative; overflow: hidden;
+    }
+    .btn::before {
+      content:''; position:absolute; top:0;left:0;right:0;height:42%;
+      background:rgba(255,255,255,.12); border-radius:20px 20px 50% 50%;
+    }
+    .btn:hover  { transform:translateY(-2px); box-shadow:0 7px 0 #5A3A06,0 14px 28px rgba(120,80,10,.4); }
+    .btn:active { transform:translateY(4px);  box-shadow:0 1px 0 #6A4808; }
+    .btn-txt { display:flex;flex-direction:column;align-items:flex-start;gap:2px;position:relative;z-index:1; }
+    .btn-t1 { font-family:'Battambang',serif;font-size:17px;font-weight:700;color:#FFF8E8;letter-spacing:.04em; }
+    .btn-t2 { font-family:'Crimson Pro',serif;font-style:italic;font-size:12px;color:rgba(255,240,200,.65); }
+    .btn-arr {
+      width:38px;height:38px;background:rgba(255,255,255,.15);
+      border-radius:50%;display:flex;align-items:center;justify-content:center;
+      color:#FFF8E8;font-size:15px;position:relative;z-index:1;flex-shrink:0;
+    }
+    .copy { text-align:center;font-family:'Crimson Pro',serif;font-size:11px;color:rgba(100,75,30,.48);letter-spacing:.06em; }
+  </style>
+</head>
+<body>
+<div class="phone">
+
+  <div class="sky"></div>
+  <div class="sun"></div>
+  <div class="cl cl1"></div>
+  <div class="cl cl2"></div>
+
+  <!-- TEMPLE -->
+  <div class="temple">
+    <svg viewBox="0 0 390 210" xmlns="http://www.w3.org/2000/svg">
+      <rect x="28" y="172" width="334" height="10" fill="#C0B07A"/>
+      <rect x="36" y="167" width="318" height="7"  fill="#CCBC86"/>
+      <rect x="48"  y="128" width="36" height="46" fill="#C4B47E"/>
+      <rect x="44"  y="123" width="44" height="7"  fill="#D0BF8C"/>
+      <rect x="52"  y="114" width="28" height="12" fill="#BEB07A"/>
+      <rect x="50"  y="110" width="32" height="6"  fill="#CCBC86"/>
+      <rect x="57"  y="96"  width="16" height="17" fill="#B8AA74"/>
+      <rect x="55"  y="92"  width="20" height="6"  fill="#CCBC86"/>
+      <polygon points="65,66 58,93 72,93" fill="#B0A46C"/>
+      <polygon points="65,58 61,68 69,68" fill="#C0B47C"/>
+      <rect x="306" y="128" width="36" height="46" fill="#C4B47E"/>
+      <rect x="302" y="123" width="44" height="7"  fill="#D0BF8C"/>
+      <rect x="310" y="114" width="28" height="12" fill="#BEB07A"/>
+      <rect x="308" y="110" width="32" height="6"  fill="#CCBC86"/>
+      <rect x="317" y="96"  width="16" height="17" fill="#B8AA74"/>
+      <rect x="315" y="92"  width="20" height="6"  fill="#CCBC86"/>
+      <polygon points="325,66 318,93 332,93" fill="#B0A46C"/>
+      <polygon points="325,58 321,68 329,68" fill="#C0B47C"/>
+      <rect x="108" y="115" width="42" height="60" fill="#CCBE84"/>
+      <rect x="104" y="109" width="50" height="8"  fill="#D8C890"/>
+      <rect x="112" y="98"  width="34" height="14" fill="#C8BA7E"/>
+      <rect x="108" y="93"  width="42" height="7"  fill="#D4C48C"/>
+      <rect x="116" y="80"  width="26" height="16" fill="#C2B478"/>
+      <rect x="112" y="75"  width="34" height="7"  fill="#D0C088"/>
+      <polygon points="129,46 119,77 139,77" fill="#BCAE70"/>
+      <polygon points="129,37 124,48 134,48" fill="#CCBE80"/>
+      <rect x="127" y="31" width="4" height="8" fill="#C4B678"/>
+      <rect x="240" y="115" width="42" height="60" fill="#CCBE84"/>
+      <rect x="236" y="109" width="50" height="8"  fill="#D8C890"/>
+      <rect x="244" y="98"  width="34" height="14" fill="#C8BA7E"/>
+      <rect x="240" y="93"  width="42" height="7"  fill="#D4C48C"/>
+      <rect x="248" y="80"  width="26" height="16" fill="#C2B478"/>
+      <rect x="244" y="75"  width="34" height="7"  fill="#D0C088"/>
+      <polygon points="261,46 251,77 271,77" fill="#BCAE70"/>
+      <polygon points="261,37 256,48 266,48" fill="#CCBE80"/>
+      <rect x="259" y="31" width="4" height="8" fill="#C4B678"/>
+      <rect x="153" y="104" width="84" height="72" fill="#D4C486"/>
+      <rect x="146" y="97"  width="98" height="10" fill="#E0CE92"/>
+      <rect x="158" y="85"  width="74" height="15" fill="#CCBF7E"/>
+      <rect x="152" y="79"  width="86" height="8"  fill="#DCCA8A"/>
+      <rect x="162" y="65"  width="66" height="17" fill="#C8BA78"/>
+      <rect x="156" y="59"  width="78" height="8"  fill="#D8C484"/>
+      <rect x="168" y="46"  width="54" height="16" fill="#C4B472"/>
+      <rect x="162" y="40"  width="66" height="8"  fill="#D4BF80"/>
+      <rect x="172" y="28"  width="46" height="15" fill="#BEB06C"/>
+      <rect x="166" y="22"  width="58" height="8"  fill="#CEBB78"/>
+      <polygon points="195,0 177,24 213,24" fill="#BAAC68"/>
+      <rect x="193" y="-4" width="4" height="6" fill="#C4B470"/>
+      <rect x="86"  y="154" width="218" height="18" fill="#C4B47A"/>
+      <rect x="82"  y="150" width="226" height="6"  fill="#D0C086"/>
+      <rect x="162" y="173" width="66" height="6"  fill="#CCBE7E"/>
+      <rect x="170" y="179" width="50" height="5"  fill="#C4B678"/>
+      <rect x="178" y="184" width="34" height="4"  fill="#BCAE70"/>
+    </svg>
+  </div>
+
+  <!-- WATER -->
+  <div class="water">
+    <div class="wl" style="width:255px;bottom:35px;left:68px;"></div>
+    <div class="wl" style="width:175px;bottom:21px;left:108px;opacity:.52;"></div>
+    <div class="wl" style="width:295px;bottom:9px;left:48px;opacity:.32;"></div>
+  </div>
+
+  <!-- GROUND -->
+  <div class="ground">
+    <div class="g-hill"></div>
+    <div class="g-main"></div>
+    <div class="g-path"></div>
+    <div class="tr" style="left:12px;"><div class="tr-b"></div><div class="tr-a"></div><div class="tr-t"></div></div>
+    <div class="tr" style="left:44px;bottom:143px;"><div class="tr-a" style="border-bottom-width:26px;border-left-width:10px;border-right-width:10px;"></div><div class="tr-t" style="height:13px;"></div></div>
+    <div class="tr" style="right:12px;"><div class="tr-b"></div><div class="tr-a"></div><div class="tr-t"></div></div>
+    <div class="tr" style="right:44px;bottom:143px;"><div class="tr-a" style="border-bottom-width:26px;border-left-width:10px;border-right-width:10px;"></div><div class="tr-t" style="height:13px;"></div></div>
+    <div class="pm" style="left:74px;"><div class="pm-h">🌴</div><div class="pm-t" style="height:36px;"></div></div>
+    <div class="pm" style="right:74px;"><div class="pm-h">🌴</div><div class="pm-t" style="height:33px;"></div></div>
+  </div>
+
+  <!-- TOP CONTENT -->
+  <div class="top-content">
+    <div class="swagamn">សូមស្វាគមន៍</div>
+    <div class="logo"></div>
+    <div class="t-km">ប្រាជ្ញាខ្មែរ</div>
+    <div class="t-en">Bracha Khmer</div>
+    <div class="div-row">
+      <div class="div-line"></div>✦<div class="div-line r"></div>
+    </div>
+    <p class="desc">
+    រៀនសូត្រ និងស្វែងយល់ពីប្រាជ្ញា<br/>
+    វប្បធម៌ខ្មែរតាមរយៈ<br/>
+    សុភាសិតនិងពាក្យបណ្ដៅ
+    </p>
+  </div>
+
+  <!-- BOTTOM BUTTON -->
+  <div class="bottom-btn">
+    <button class="btn">
+      <div class="btn-txt">
+        <div class="btn-t1">ចូលគណនី / ចុះឈ្មោះ</div>
+        <div class="btn-t2">Login or create a new account</div>
+      </div>
+      <div class="btn-arr">▶</div>
+    </button>
+    <div class="copy">© ប្រាជ្ញាខ្មែរ · Bracha Khmer · 2025</div>
+  </div>
+
+</div>
+</body>
+</html>

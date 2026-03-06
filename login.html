@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ប្រាជ្ញាខ្មែរ – Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Battambang:wght@400;700&family=Moul&family=Crimson+Pro:ital,wght@0,400;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      background: #2C2420;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Battambang', serif;
+    }
+
+    .phone {
+      width: 350px;
+      height: 680px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 40px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+      flex-shrink: 0;
+    }
+
+    /* ── SKY BG ── */
+    .sky {
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(180deg,
+        #C8DFF0 0%, #DCF0FA 15%, #EEE8D0 42%,
+        #E8DCBA 62%, #D4C898 80%, #C4B882 100%);
+    }
+
+    /* ── SUN GLOW ── */
+    .sun {
+      position: absolute; z-index: 2;
+      top: 30px; left: 50%; transform: translateX(-50%);
+      width: 220px; height: 220px;
+      background: radial-gradient(circle,
+        rgba(255,245,190,.85) 0%, rgba(255,225,130,.45) 40%,
+        rgba(255,200,80,.14) 70%, transparent 100%);
+      border-radius: 50%;
+    }
+
+    /* ── CLOUDS ── */
+    .cl { position:absolute; z-index:3; background:rgba(255,255,255,.65); border-radius:50px; }
+    .cl::before,.cl::after { content:''; position:absolute; background:rgba(255,255,255,.65); border-radius:50%; }
+    .cl1 { width:60px; height:15px; top:55px; left:20px; }
+    .cl1::before { width:25px; height:25px; top:-12px; left:8px; }
+    .cl1::after  { width:18px; height:18px; top:-9px; left:26px; }
+    .cl2 { width:45px; height:12px; top:70px; right:30px; opacity:.55; }
+    .cl2::before { width:20px; height:20px; top:-10px; left:6px; }
+    .cl2::after  { width:14px; height:14px; top:-7px; left:20px; }
+
+    /* ── GROUND STRIP ── */
+    .ground-strip {
+      position: absolute; z-index: 5;
+      bottom: 0; left: 0; right: 0;
+      height: 90px;
+      background: linear-gradient(180deg, #C8B87A 0%, #A89858 100%);
+    }
+    .ground-hill {
+      position: absolute; z-index: 5;
+      bottom: 82px; left: -10%; right: -10%;
+      height: 60px;
+      background: #7AAA58;
+      border-radius: 50% 50% 0 0;
+    }
+    .tr { position:absolute; z-index:6; bottom:76px; display:flex; flex-direction:column; align-items:center; }
+    .tr-a { width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-bottom:30px solid #4A7838; }
+    .tr-b { width:0;height:0;border-left:9px solid transparent;border-right:9px solid transparent;border-bottom:22px solid #5A8848;margin-top:-13px; }
+    .tr-t { width:6px;height:14px;background:#6B4828;border-radius:2px; }
+    .pm { position:absolute; z-index:6; bottom:76px; display:flex; flex-direction:column; align-items:center; }
+    .pm-h { font-size:22px;filter:saturate(.5) brightness(.68);margin-bottom:-6px; }
+    .pm-t { width:5px;background:#7A5530;border-radius:3px; }
+
+    /* ── TOP BAR ── */
+    .top-bar {
+      position: absolute; z-index: 10;
+      top: 50px; left: 20px; right: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .back-btn {
+      width: 40px; height: 40px;
+      background: rgba(255,248,220,0.75);
+      border: 1.5px solid rgba(180,130,40,0.25);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 18px; color: #6A4010;
+      transition: background 0.2s;
+      backdrop-filter: blur(4px);
+    }
+    .back-btn:hover { background: rgba(255,248,220,0.95); }
+
+    .top-logo {
+      font-family: 'Moul', serif;
+      font-size: 16px;
+      color: #5A3808;
+      text-shadow: 1px 1px 0 rgba(200,150,40,.3);
+    }
+
+    /* placeholder right side */
+    .top-spacer { width: 40px; }
+
+    /* ── MAIN CARD ── */
+    .card {
+      position: absolute;
+      z-index: 9;
+      top: 100px;
+      left: 20px; right: 20px;
+      background: rgba(255, 252, 240, 0.92);
+      border-radius: 28px;
+      padding: 28px 24px 24px;
+      box-shadow:
+        0 8px 32px rgba(100,70,10,0.18),
+        0 2px 0 rgba(255,255,255,0.8) inset;
+      border: 1px solid rgba(200,160,60,0.2);
+      backdrop-filter: blur(8px);
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    /* Card header */
+    .card-header {
+      text-align: center;
+      margin-bottom: 22px;
+    }
+
+    .card-icon {
+      font-size: 36px;
+      display: block;
+      margin-bottom: 8px;
+      animation: bob 3.5s ease-in-out infinite;
+    }
+    @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+
+    .card-title {
+      font-family: 'Moul', serif;
+      font-size: 22px;
+      color: #4A2E08;
+      text-shadow: 1px 1px 0 rgba(200,150,40,.25);
+    }
+
+    .card-subtitle {
+      font-family: 'Crimson Pro', serif;
+      font-style: italic;
+      font-size: 13px;
+      color: #9A7840;
+      margin-top: 4px;
+      letter-spacing: 0.06em;
+    }
+
+    /* Divider */
+    .card-divider {
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 20px;
+      color: #C8A040; font-size: 11px; opacity: .6;
+    }
+    .cdl { flex:1; height:1px; background:linear-gradient(90deg,transparent,#C8A040); }
+    .cdl.r { background:linear-gradient(90deg,#C8A040,transparent); }
+
+    /* Field */
+    .field { display:flex; flex-direction:column; gap:6px; margin-bottom:14px; }
+    .field-label {
+      font-size: 12px;
+      color: #8A7050;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding-left: 2px;
+    }
+    .field-wrap { position: relative; }
+    .field-input {
+      width: 100%;
+      padding: 13px 16px;
+      background: #FDF5E4;
+      border: 1.5px solid #E8D8A8;
+      border-radius: 12px;
+      font-family: 'Battambang', serif;
+      font-size: 15px;
+      color: #3D2008;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .field-input::placeholder { color: #C0A878; }
+    .field-input:focus {
+      border-color: #C8943A;
+      box-shadow: 0 0 0 3px rgba(200,148,58,0.15);
+      background: #FFFBF0;
+    }
+    .eye {
+      position: absolute; right: 14px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px; cursor: pointer; opacity: 0.45;
+      transition: opacity 0.2s;
+    }
+    .eye:hover { opacity: 0.85; }
+
+    /* Forgot */
+    .forgot {
+      text-align: right;
+      font-family: 'Crimson Pro', serif;
+      font-style: italic;
+      font-size: 12.5px;
+      color: #C8943A;
+      cursor: pointer;
+      margin-top: -6px;
+      margin-bottom: 18px;
+      transition: opacity 0.2s;
+    }
+    .forgot:hover { opacity: 0.7; text-decoration: underline; }
+
+    /* Login button */
+    .btn-login {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #C89A3A 0%, #A87820 55%, #8A6010 100%);
+      border: none;
+      border-radius: 50px;
+      font-family: 'Battambang', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #FFF8E8;
+      cursor: pointer;
+      box-shadow: 0 5px 0 #6A4808, 0 8px 20px rgba(120,80,10,0.3);
+      transition: transform 0.15s, box-shadow 0.15s;
+      letter-spacing: 0.04em;
+      position: relative; overflow: hidden;
+    }
+    .btn-login::before {
+      content:''; position:absolute; top:0;left:0;right:0;height:45%;
+      background:rgba(255,255,255,.12); border-radius:50px 50px 50% 50%;
+    }
+    .btn-login:hover  { transform:translateY(-2px); box-shadow:0 7px 0 #5A3A06,0 12px 24px rgba(120,80,10,.35); }
+    .btn-login:active { transform:translateY(3px);  box-shadow:0 2px 0 #6A4808; }
+
+    /* Or divider */
+    .or-row {
+      display: flex; align-items: center; gap: 10px;
+      margin: 14px 0;
+      color: #B0906A; font-size: 12px;
+      font-family: 'Crimson Pro', serif;
+    }
+    .or-line { flex:1; height:1px; background:#E8D8A8; }
+
+    /* Register link */
+    .reg-link {
+      text-align: center;
+      font-size: 13.5px;
+      color: #8A7050;
+    }
+    .reg-link span {
+      color: #C8943A;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .reg-link span:hover { opacity: 0.7; text-decoration: underline; }
+  </style>
+</head>
+<body>
+<div class="phone">
+
+  <!-- BG LAYERS -->
+  <div class="sky"></div>
+  <div class="sun"></div>
+  <div class="cl cl1"></div>
+  <div class="cl cl2"></div>
+
+  <!-- FAINT TEMPLE BG -->
+  <div class="temple-bg">
+    <svg viewBox="0 0 390 210" xmlns="http://www.w3.org/2000/svg" fill="#8A6820">
+      <rect x="28" y="172" width="334" height="38"/>
+      <rect x="48" y="128" width="36" height="46"/><rect x="44" y="123" width="44" height="7"/>
+      <rect x="52" y="114" width="28" height="12"/><rect x="50" y="110" width="32" height="6"/>
+      <rect x="57" y="96"  width="16" height="17"/><rect x="55" y="92"  width="20" height="6"/>
+      <polygon points="65,66 58,93 72,93"/><polygon points="65,58 61,68 69,68"/>
+      <rect x="306" y="128" width="36" height="46"/><rect x="302" y="123" width="44" height="7"/>
+      <rect x="310" y="114" width="28" height="12"/><rect x="308" y="110" width="32" height="6"/>
+      <rect x="317" y="96"  width="16" height="17"/><rect x="315" y="92"  width="20" height="6"/>
+      <polygon points="325,66 318,93 332,93"/><polygon points="325,58 321,68 329,68"/>
+      <rect x="108" y="115" width="42" height="60"/><rect x="104" y="109" width="50" height="8"/>
+      <rect x="112" y="98"  width="34" height="14"/><rect x="108" y="93"  width="42" height="7"/>
+      <rect x="116" y="80"  width="26" height="16"/><rect x="112" y="75"  width="34" height="7"/>
+      <polygon points="129,46 119,77 139,77"/><polygon points="129,37 124,48 134,48"/>
+      <rect x="240" y="115" width="42" height="60"/><rect x="236" y="109" width="50" height="8"/>
+      <rect x="244" y="98"  width="34" height="14"/><rect x="240" y="93"  width="42" height="7"/>
+      <rect x="248" y="80"  width="26" height="16"/><rect x="244" y="75"  width="34" height="7"/>
+      <polygon points="261,46 251,77 271,77"/><polygon points="261,37 256,48 266,48"/>
+      <rect x="153" y="104" width="84" height="72"/><rect x="146" y="97"  width="98" height="10"/>
+      <rect x="158" y="85"  width="74" height="15"/><rect x="152" y="79"  width="86" height="8"/>
+      <rect x="162" y="65"  width="66" height="17"/><rect x="156" y="59"  width="78" height="8"/>
+      <rect x="168" y="46"  width="54" height="16"/><rect x="162" y="40"  width="66" height="8"/>
+      <rect x="172" y="28"  width="46" height="15"/><rect x="166" y="22"  width="58" height="8"/>
+      <polygon points="195,0 177,24 213,24"/>
+      <rect x="86" y="154" width="218" height="18"/>
+    </svg>
+  </div>
+
+  <!-- GROUND -->
+  <div class="ground-hill"></div>
+  <div class="ground-strip"></div>
+  <div class="tr" style="left:10px;"><div class="tr-b"></div><div class="tr-a"></div><div class="tr-t"></div></div>
+  <div class="tr" style="right:10px;"><div class="tr-b"></div><div class="tr-a"></div><div class="tr-t"></div></div>
+  <div class="pm" style="left:68px;"><div class="pm-h">🌴</div><div class="pm-t" style="height:30px;"></div></div>
+  <div class="pm" style="right:68px;"><div class="pm-h">🌴</div><div class="pm-t" style="height:28px;"></div></div>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <button class="back-btn">←</button>
+    <div class="top-logo">ប្រាជ្ញាខ្មែរ</div>
+    <div class="top-spacer"></div>
+  </div>
+
+  <!-- LOGIN CARD -->
+  <div class="card">
+
+    <div class="card-header">
+      <div class="card-title">ចូលគណនី</div>
+      <div class="card-subtitle">Login to your account</div>
+    </div>
+
+    <div class="card-divider">
+      <div class="cdl"></div>✦<div class="cdl r"></div>
+    </div>
+
+    <!-- Username -->
+    <div class="field">
+      <div class="field-label">Username · ឈ្មោះអ្នកប្រើ</div>
+      <div class="field-wrap">
+        <input class="field-input" type="text" placeholder="បញ្ចូលឈ្មោះអ្នកប្រើ..."/>
+      </div>
+    </div>
+
+    <!-- Password -->
+    <div class="field">
+      <div class="field-label">Password · ពាក្យសម្ងាត់</div>
+      <div class="field-wrap">
+        <input class="field-input" type="password" id="pw" placeholder="បញ្ចូលពាក្យសម្ងាត់..."/>
+        <span class="eye" onclick="togglePw()">👁</span>
+      </div>
+    </div>
+
+    <!-- Forgot -->
+    <div class="forgot">Forgot password?</div>
+
+    <!-- Login btn -->
+    <button class="btn-login">ចូលគណនី</button>
+
+    <div class="or-row">
+      <div class="or-line"></div>
+      ឬ / or
+      <div class="or-line"></div>
+    </div>
+
+    <!-- Register link -->
+    <div class="reg-link">
+      មិនទាន់មានគណនី? <span onclick="alert('Go to Register!')">ចុះឈ្មោះឥឡូវ</span>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  function togglePw() {
+    const i = document.getElementById('pw')
+    i.type = i.type === 'password' ? 'text' : 'password'
+  }
+</script>
+</body>
+</html>
