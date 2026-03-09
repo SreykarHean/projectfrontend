@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Logo Design</title>
+  <link href="https://fonts.googleapis.com/css2?family=Battambang:wght@400;700&family=Moul&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #1A1008;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+      padding: 48px 24px;
+      font-family: 'Battambang', serif;
+    }
+
+    .label {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,220,120,0.4);
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    /* ── OPTION A — Gold stacked, ornament line ── */
+    .logo-a {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+      background: linear-gradient(135deg, #5A3808, #7A5020);
+      padding: 22px 36px 18px;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+    .logo-a .top {
+      font-family: 'Moul', serif;
+      font-size: 34px;
+      color: #F5D878;
+      text-shadow: 0 2px 12px rgba(180,120,10,0.6), 0 0 30px rgba(245,216,120,0.3);
+      letter-spacing: 0.04em;
+      line-height: 1;
+    }
+    .logo-a .divider {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin: 4px 0;
+      color: rgba(245,216,120,0.35);
+      font-size: 10px;
+    }
+    .logo-a .divider::before,
+    .logo-a .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(245,216,120,0.4), transparent);
+    }
+    .logo-a .bottom {
+      font-family: 'Battambang', serif;
+      font-size: 13px;
+      color: rgba(245,216,120,0.7);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+    }
+
+    /* ── OPTION B — Big stacked, cream sub ── */
+    .logo-b {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      background: linear-gradient(135deg, #5A3808, #7A5020);
+      padding: 22px 36px 18px;
+      border-radius: 100px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+      position: relative;
+      overflow: hidden;
+    }
+    .logo-b::before {
+      content: '✦ ❖ ✦ ❖ ✦ ❖ ✦ ❖ ✦';
+      position: absolute; top: 6px; left: 0; right: 0;
+      font-size: 8px; color: rgba(245,216,120,0.15);
+      text-align: center; letter-spacing: 6px;
+    }
+    .logo-b .top {
+      font-family: 'Moul', serif;
+      font-size: 26px;
+      background: linear-gradient(180deg, #FFE878 0%, #C89028 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.6;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+    }
+    .logo-b .bottom {
+      font-family: 'Battambang', serif;
+      font-size: 12px;
+      color: rgba(255, 245, 220, 0.85);
+      letter-spacing: 0.3em;
+      margin-top: 2px;
+      font-weight: 700;
+    }
+    .logo-b .dot {
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: rgba(245,216,120,0.5);
+      margin-top: 8px;
+    }
+
+    /* ── OPTION C — Inline with separator ── */
+    .logo-c {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      background: linear-gradient(135deg, #5A3808, #7A5020);
+      padding: 18px 32px 16px;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+      border-left: 3px solid #C89028;
+    }
+    .logo-c .top {
+      font-family: 'Moul', serif;
+      font-size: 30px;
+      color: #F5D878;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+      line-height: 1;
+    }
+    .logo-c .bottom-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 5px;
+    }
+    .logo-c .line {
+      width: 20px; height: 1.5px;
+      background: linear-gradient(90deg, #C89028, transparent);
+    }
+    .logo-c .bottom {
+      font-family: 'Battambang', serif;
+      font-size: 11px;
+      color: rgba(245,216,120,0.65);
+      letter-spacing: 0.2em;
+      font-weight: 700;
+    }
+
+    /* ── HOW IT LOOKS IN NAVBAR ── */
+    .navbar-preview {
+      width: 350px;
+      background: linear-gradient(135deg, #5A3808 0%, #7A5020 100%);
+      border-radius: 16px;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+    .navbar-logo-a {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      line-height: 1;
+    }
+    .navbar-logo-a .top {
+      font-family: 'Moul', serif;
+      font-size: 18px;
+      color: #F5D878;
+      text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+    }
+    .navbar-logo-a .bottom {
+      font-family: 'Battambang', serif;
+      font-size: 9px;
+      color: rgba(245,216,120,0.6);
+      letter-spacing: 0.2em;
+      font-weight: 700;
+      margin-top: 1px;
+    }
+    .navbar-icons {
+      display: flex;
+      gap: 4px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="label">Option A — Gold with ornament line</div>
+  <div class="logo-a">
+    <div class="top">ប្រាជ្ញា</div>
+    <div class="divider">✦</div>
+    <div style="align-self:flex-end; font-family:Battambang,serif; font-size:13px; color:rgba(245,216,120,0.7); letter-spacing:0.25em;">ខ្មែរ</div>
+  </div>
+
+  <div class="label">Option B — Gradient gold</div>
+  <div class="logo-b">
+    <div class="top">ប្រាជ្ញា</div>
+    <div style="align-self:flex-end; font-family:Battambang,serif; font-size:18px; color:#F5D878; letter-spacing:0; font-weight:700; margin-top:-15px; margin-left: 65px;">ខ្មែរ</div>
+  </div>
+
+  <div class="label">Option C — Left border, minimal</div>
+  <div class="logo-c">
+    <div class="top">ប្រាជ្ញា</div>
+    <div class="bottom-row" style="justify-content:flex-end;">
+      <div class="bottom">ខ្មែរ</div>
+    </div>
+  </div>
+
+  <div class="label">How it looks inside the navbar</div>
+  <div class="navbar-preview">
+    <div class="navbar-logo-a">
+      <div class="top">ប្រាជ្ញា</div>
+      <div style="align-self:flex-end; font-family:Battambang,serif; font-size:9px; color:rgba(245,216,120,0.6); letter-spacing:0.2em; font-weight:700;">ខ្មែរ</div>
+    </div>
+    <div class="navbar-icons">🏠 ❤️ 👤 🚪</div>
+  </div>
+
+</body>
+</html>
