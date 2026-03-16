@@ -198,7 +198,7 @@ export default function WelcomePage() {
             វប្បធម៌ខ្មែរតាមរយៈ<br/>
             សុភាសិតនិងពាក្យបណ្ដៅ
           </p>
-          <button className="wp-btn" onClick={() => navigate('/register')}>
+          <button className="wp-btn" onClick={() => navigate('/login')}>
             <div className="wp-btn-txt">
               <div className="wp-btn-t1">ចូលគណនី / ចុះឈ្មោះ</div>
               <div className="wp-btn-t2">Login or create a new account</div>

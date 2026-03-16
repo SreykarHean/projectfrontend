@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import angkorImg from '../assets/angkor.png'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUserPlus, faUser, faEnvelope, faLock, faEye, faEyeSlash, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Battambang:wght@400;700&family=Moul&family=Crimson+Pro:ital,wght@0,400;1,400&display=swap');
@@ -14,7 +16,6 @@ const styles = `
     display: flex; align-items: center; justify-content: center;
     position: relative;
   }
-
   .rp-bg-img {
     position: absolute; inset: 0; z-index: 0;
     width: 100%; height: 100%;
@@ -32,8 +33,7 @@ const styles = `
     display: flex; flex-direction: column; align-items: center;
     padding: 36px 48px 32px;
     background: rgba(255,248,225,0.18);
-    backdrop-filter: blur(22px);
-    -webkit-backdrop-filter: blur(22px);
+    backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
     border-radius: 36px;
     border: 1px solid rgba(255,210,100,0.35);
     box-shadow: 0 2px 0 rgba(255,255,255,0.12) inset, 0 16px 60px rgba(0,0,0,0.45);
@@ -50,7 +50,7 @@ const styles = `
     border-radius: 4px 4px 0 0;
   }
 
-  /* ── NAVBAR ROW ── */
+  /* ── NAVBAR ── */
   .rp-navbar {
     width: 100%; display: flex; align-items: center;
     justify-content: space-between; margin-bottom: 20px;
@@ -61,30 +61,27 @@ const styles = `
     border: 1.5px solid rgba(255,210,100,0.3);
     border-radius: 12px;
     display: flex; align-items: center; justify-content: center;
-    cursor: pointer; font-size: 18px; color: #FFF0CC;
-    transition: background 0.2s;
-    flex-shrink: 0;
+    cursor: pointer; font-size: 15px; color: #FFF0CC;
+    transition: background 0.2s; flex-shrink: 0;
   }
   .rp-back:hover { background: rgba(255,248,220,0.28); }
-
-  .rp-logo-stack {
-    display: flex; flex-direction: column; align-items: flex-start; line-height: 1;
-  }
-  .rp-logo-top {
-    font-family: 'Moul', serif; font-size: 18px; color: #F5D878;
-    text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
-  }
-  .rp-logo-sub {
-    font-family: 'Battambang', serif; font-size: 10px;
-    color: rgba(245,216,120,0.65); font-weight: 700;
-    align-self: flex-end; letter-spacing: 0;
-  }
+  .rp-logo-stack { display: flex; flex-direction: column; align-items: flex-start; line-height: 1; }
+  .rp-logo-top { font-family: 'Moul', serif; font-size: 18px; color: #F5D878; text-shadow: 1px 1px 0 rgba(0,0,0,0.3); }
+  .rp-logo-sub { font-family: 'Battambang', serif; font-size: 10px; color: rgba(245,216,120,0.65); font-weight: 700; align-self: flex-end; letter-spacing: 0; }
   .rp-spacer { width: 38px; }
 
   /* ── HEADER ── */
   .rp-header { text-align: center; margin-bottom: 16px; }
-  .rp-icon { font-size: 30px; display: block; margin-bottom: 6px; animation: rp-bob 3.5s ease-in-out infinite; }
-  @keyframes rp-bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+  .rp-icon {
+    display: flex; align-items: center; justify-content: center;
+    width: 64px; height: 64px; margin: 0 auto 10px;
+    background: linear-gradient(145deg, #F2CC52, #C89028);
+    border-radius: 18px;
+    font-size: 26px; color: #5A3008;
+    box-shadow: 0 6px 18px rgba(180,120,20,.42), 0 2px 0 rgba(255,255,255,.35) inset;
+    animation: rp-bob 3.5s ease-in-out infinite;
+  }
+  @keyframes rp-bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
   .rp-title { font-family: 'Moul', serif; font-size: 22px; color: #FFF0CC; text-shadow: 1px 1px 0 rgba(0,0,0,0.3); }
   .rp-subtitle { font-family: 'Crimson Pro', serif; font-style: italic; font-size: 13px; color: rgba(255,220,140,0.7); margin-top: 3px; }
 
@@ -97,12 +94,16 @@ const styles = `
   .rp-dl.r { background:linear-gradient(90deg,#F5D878,transparent); }
 
   /* ── FIELDS ── */
-  .rp-field { display:flex; flex-direction:column; gap:5px; margin-bottom:12px; width: 100%; }
+  .rp-field { display:flex; flex-direction:column; gap:5px; margin-bottom:12px; width:100%; }
   .rp-field-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px; width:100%; }
   .rp-label { font-size:11px; color:rgba(255,220,140,0.7); letter-spacing:0.08em; text-transform:uppercase; padding-left:2px; }
   .rp-wrap { position:relative; }
+  .rp-input-icon {
+    position:absolute; left:14px; top:50%; transform:translateY(-50%);
+    color:rgba(245,216,120,0.45); font-size:14px; pointer-events:none;
+  }
   .rp-input {
-    width:100%; padding:12px 14px;
+    width:100%; padding:12px 44px 12px 40px;
     background:rgba(255,248,220,0.12);
     border:1.5px solid rgba(255,210,100,0.25);
     border-radius:12px;
@@ -117,9 +118,11 @@ const styles = `
   }
   .rp-eye {
     position:absolute; right:12px; top:50%; transform:translateY(-50%);
-    font-size:15px; cursor:pointer; opacity:.45; transition:opacity 0.2s;
+    font-size:13px; cursor:pointer;
+    color:rgba(245,216,120,0.45); transition:color 0.2s;
+    background: none; border: none; padding: 0;
   }
-  .rp-eye:hover { opacity:.85; }
+  .rp-eye:hover { color:rgba(245,216,120,0.9); }
 
   /* ── BUTTON ── */
   .rp-btn {
@@ -151,21 +154,19 @@ export default function RegisterPage() {
 
   const handleRegister = () => {
     if (!form.username || !form.email || !form.password || !form.confirm) {
-      alert('Please fill in all fields!')
-      return
+      alert('Please fill in all fields!'); return
     }
     if (form.password !== form.confirm) {
-      alert('Passwords do not match!')
-      return
+      alert('Passwords do not match!'); return
     }
-    // Save to localStorage
     const users = JSON.parse(localStorage.getItem('bk_users') || '[]')
-    const exists = users.find(u => u.username === form.username)
-    if (exists) { alert('Username already taken!'); return }
+    if (users.find(u => u.username === form.username)) {
+      alert('Username already taken!'); return
+    }
     users.push({ username: form.username, email: form.email, password: form.password, role: 'user' })
     localStorage.setItem('bk_users', JSON.stringify(users))
     alert('Account created! Please login.')
-    navigate('/login')
+    navigate('/home')
   }
 
   return (
@@ -181,7 +182,9 @@ export default function RegisterPage() {
 
           {/* NAVBAR */}
           <div className="rp-navbar">
-            <button className="rp-back" onClick={() => navigate('/')}>←</button>
+            <button className="rp-back" onClick={() => navigate('/')}>
+              <FontAwesomeIcon icon={faArrowLeft} />
+            </button>
             <div className="rp-logo-stack">
               <div className="rp-logo-top">ប្រាជ្ញា</div>
               <div className="rp-logo-sub">ខ្មែរ</div>
@@ -191,7 +194,9 @@ export default function RegisterPage() {
 
           {/* HEADER */}
           <div className="rp-header">
-            <span className="rp-icon">📝</span>
+            <div className="rp-icon">
+              <FontAwesomeIcon icon={faUserPlus} />
+            </div>
             <div className="rp-title">ចុះឈ្មោះ</div>
             <div className="rp-subtitle">Create your account</div>
           </div>
@@ -204,6 +209,7 @@ export default function RegisterPage() {
           <div className="rp-field">
             <div className="rp-label">Username · ឈ្មោះអ្នកប្រើ</div>
             <div className="rp-wrap">
+              <span className="rp-input-icon"><FontAwesomeIcon icon={faUser} /></span>
               <input className="rp-input" type="text" name="username"
                 placeholder="បញ្ចូលឈ្មោះអ្នកប្រើ..." value={form.username} onChange={handleChange}/>
             </div>
@@ -213,6 +219,7 @@ export default function RegisterPage() {
           <div className="rp-field">
             <div className="rp-label">Email · អ៊ីមែល</div>
             <div className="rp-wrap">
+              <span className="rp-input-icon"><FontAwesomeIcon icon={faEnvelope} /></span>
               <input className="rp-input" type="email" name="email"
                 placeholder="example@email.com" value={form.email} onChange={handleChange}/>
             </div>
@@ -223,22 +230,27 @@ export default function RegisterPage() {
             <div className="rp-field" style={{marginBottom:0}}>
               <div className="rp-label">Password</div>
               <div className="rp-wrap">
+                <span className="rp-input-icon"><FontAwesomeIcon icon={faLock} /></span>
                 <input className="rp-input" type={showPw1 ? 'text' : 'password'} name="password"
                   placeholder="••••••••" value={form.password} onChange={handleChange}/>
-                <span className="rp-eye" onClick={() => setShowPw1(!showPw1)}>👁</span>
+                <button className="rp-eye" onClick={() => setShowPw1(!showPw1)}>
+                  <FontAwesomeIcon icon={showPw1 ? faEyeSlash : faEye} />
+                </button>
               </div>
             </div>
             <div className="rp-field" style={{marginBottom:0}}>
               <div className="rp-label">Confirm</div>
               <div className="rp-wrap">
+                <span className="rp-input-icon"><FontAwesomeIcon icon={faLock} /></span>
                 <input className="rp-input" type={showPw2 ? 'text' : 'password'} name="confirm"
                   placeholder="••••••••" value={form.confirm} onChange={handleChange}/>
-                <span className="rp-eye" onClick={() => setShowPw2(!showPw2)}>👁</span>
+                <button className="rp-eye" onClick={() => setShowPw2(!showPw2)}>
+                  <FontAwesomeIcon icon={showPw2 ? faEyeSlash : faEye} />
+                </button>
               </div>
             </div>
           </div>
 
-          {/* REGISTER BTN */}
           <button className="rp-btn" onClick={handleRegister}>ចុះឈ្មោះ</button>
 
           <div className="rp-login-link">
