@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faHouse, faHeart, faUser, faRightFromBracket,
-  faBookOpen, faCommentDots, faTag, faMagnifyingGlass
+  faBookOpen, faCommentDots, faTag, faMagnifyingGlass,faQuestionCircle
 } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as faHeartOutline } from '@fortawesome/free-regular-svg-icons'
 
@@ -53,6 +53,15 @@ const styles = `
   .pv-nav-logout:hover { background: rgba(200,80,50,0.4); }
   .pv-nav-logout-icon { font-size: 16px; }
 
+.pv-nav-quiz {
+  background: rgba(100,160,80,0.22); border: 1px solid rgba(100,160,80,0.4);
+  border-radius: 12px; padding: 8px 12px;
+  color: #90F090; font-size: 10px; cursor: pointer;
+  font-family: 'Battambang', serif;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  transition: background 0.2s;
+}
+.pv-nav-quiz:hover { background: rgba(100,160,80,0.4); }
   /* ── TABS ── */
   .pv-tabs {
     width: 100%;
@@ -155,11 +164,14 @@ const styles = `
 `
 
 const PROVERBS = [
-  { id:1, category:'ជីវិត',    text:'ក្ដៅថ្ងៃមិនស្មើក្ដៅចិត្ដ' },
-  { id:2, category:'ការអប់រំ', text:'ផ្លូវវៀចកុំបោះបង់ ផ្លូវត្រង់កុំដើរហោង' },
-  { id:3, category:'មិត្តភាព', text:'ក្បែរអ្នកល្អ ក្លាយជាអ្នកល្អ' },
-  { id:4, category:'ជោគជ័យ',  text:'ទន្លេធំ ចាប់ត្រីធំ' },
-  { id:5, category:'ជីវិត',    text:'ដែលខ្លួនមិនចង់ កុំធ្វើដល់គេ' },
+  { id:1, category:'ជីវិត',    text:'ដំបៅមិនឈឺ យកឈើចាក់' },
+  { id:2, category:'ជីវិត',    text:'តក់ៗពេញបំពង់' },
+  { id:3, category:'ការអប់រំ', text:'ផ្លូវវៀចកុំបោះបង់ ផ្លូវត្រង់កុំដើរហោង' },
+  { id:4, category:'ការអប់រំ', text:'ឃើញ​ដំរី​ជុះ​ កុំ​ជុះ​តាម​ដំរី (ឬ ដំរី​ជុះ​ កុំ​ជុះ​តាម​ដំរី)' },
+  { id:5, category:'មិត្តភាព', text:'គ្នាច្រើនអន្សមខ្លោច ​គ្នាដូចស្រមោចអន្សមឆៅ' },
+  { id:6, category:'មិត្តភាព', text:'ចានមួយរាវ លែងអីរណ្តំគ្នា' },
+  { id:7, category:'ជោគជ័យ',  text:'ដើរយឺតក៏ដល់' },
+  { id:8, category:'ជោគជ័យ',  text:'ចង់ចេះឲ្យធ្វើល្ងង់' }
 ]
 
 const CATEGORIES = ['ទាំងអស់', 'ជីវិត', 'ការអប់រំ', 'មិត្តភាព', 'ជោគជ័យ']
@@ -212,6 +224,9 @@ export default function ProverbPage() {
             </button>
             <button className="pv-nav-btn" onClick={() => navigate('/profile')}>
               <span className="pv-nav-btn-icon"><FontAwesomeIcon icon={faUser} /></span>គណនី
+            </button>
+             <button className="pv-nav-quiz" onClick={() => navigate('/quiz')}>
+                <span style={{fontSize:16}}><FontAwesomeIcon icon={faQuestionCircle} /></span>Quiz
             </button>
             <button className="pv-nav-logout" onClick={handleLogout}>
               <span className="pv-nav-logout-icon"><FontAwesomeIcon icon={faRightFromBracket} /></span>ចាកចេញ

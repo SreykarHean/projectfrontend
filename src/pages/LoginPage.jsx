@@ -242,7 +242,9 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <div className="lp-forgot">Forgot password?</div>
+          <div className="lp-forgot" onClick={() => navigate('/forgot-password')}>
+          Forgot password?
+          </div>
 
           <button className="lp-btn" onClick={handleLogin}>ចូលគណនី</button>
 
